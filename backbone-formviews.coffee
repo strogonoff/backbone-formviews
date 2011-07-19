@@ -368,6 +368,7 @@ class ModelFormView extends FormWithRelationsView
     @
 
 
+Backbone = window.Backbone
 Backbone.ModelFormView = ModelFormView
 Backbone.MultipleModelFormView = MultipleModelFormView
 Backbone.FormWithRelationsView = FormWithRelationsView
