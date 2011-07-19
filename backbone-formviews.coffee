@@ -3,6 +3,7 @@ A global object responsible for displaying confirmation messages
 and stuff like that.
 ###
 UI = window.UI
+Backbone = window.Backbone
 
 
 class FormView extends Backbone.RenderableView
@@ -341,7 +342,7 @@ class ModelFormView extends FormWithRelationsView
     # Model JSON and model itself
     # are passed to the template by default.
     # Also related fields are added, as <field_name>_choices.
-    _.extend {}, super, context, @model.toJSON(),
+    _.extend {}, super, @model.toJSON(),
       model: @model
 
   get_context_helpers: =>
@@ -368,7 +369,6 @@ class ModelFormView extends FormWithRelationsView
     @
 
 
-Backbone = window.Backbone
 Backbone.ModelFormView = ModelFormView
 Backbone.MultipleModelFormView = MultipleModelFormView
 Backbone.FormWithRelationsView = FormWithRelationsView
