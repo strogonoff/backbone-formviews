@@ -5,7 +5,7 @@ and stuff like that.
 UI = window.UI
 
 
-class exports.FormView extends Backbone.RenderableView
+class FormView extends Backbone.RenderableView
   events:
     'submit form': 'handle_submit'
     'click .submit': 'handle_submit'
@@ -13,10 +13,16 @@ class exports.FormView extends Backbone.RenderableView
 
   formSelector: 'form'
 
-  # ^ To handle multiple forms per HTML document,
-  # to give uniqueness to their ids.
+  ###
+  Allows handling multiple forms per HTML document,
+  gives uniqueness to their ids.
+  ###
   formPrefix: ''
 
+  ###
+  Templates are expected to be requireable like this.
+  (Using brunch allows for that.)
+  ###
   fieldTemplate: require('templates/forms/field')
   fields: []
 
@@ -104,7 +110,7 @@ class exports.FormView extends Backbone.RenderableView
   get_form_action_url: -> ""
 
 
-class exports.FormWithRelatedFieldsView extends exports.FormView
+class FormWithRelationsView extends FormView
   relatedFieldTemplate: require('templates/forms/related_field')
   relatedFields: {}
   relatedFieldsAutoCreateBy: {}
@@ -197,7 +203,7 @@ class exports.FormWithRelatedFieldsView extends exports.FormView
       #console.log 'boxing', field, collection, resp
 
 
-class exports.MultipleModelFormView extends exports.FormWithRelatedFieldsView
+class MultipleModelFormView extends FormWithRelationsView
   ###
   Defines which fields should not be editable in multiple model form.
   (Fields like identification numbers should go here.)
@@ -320,7 +326,7 @@ class exports.MultipleModelFormView extends exports.FormWithRelatedFieldsView
     @
 
 
-class exports.ModelFormView extends exports.FormWithRelatedFieldsView
+class ModelFormView extends FormWithRelationsView
   fieldTemplate: require('templates/forms/model_field')
 
   get_submit_type: -> if @model.isNew() then 'POST' else 'PUT'
@@ -360,3 +366,9 @@ class exports.ModelFormView extends exports.FormWithRelatedFieldsView
     @model.unbind @render
     #@model = null
     @
+
+
+Backbone.ModelFormView = ModelFormView
+Backbone.MultipleModelFormView = MultipleModelFormView
+Backbone.FormWithRelationsView = FormWithRelationsView
+Backbone.FormView = FormView
