@@ -285,7 +285,7 @@ class MultipleModelFormView extends FormWithRelationsView
       unique = _.uniq values
       if unique.length == 1
         common_data[field] = unique[0]
-    return comon_data
+    return common_data
 
   ###
   Enabling and disabling fields:
